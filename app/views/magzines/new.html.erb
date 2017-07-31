@@ -1,0 +1,133 @@
+<h1>New Magzine</h1>
+
+<script type="text/javascript">
+	var id_redirect;
+</script>
+
+<!-- Wrapper -->
+<div class="wrapper">
+    <!-- Topic Header -->
+    <div class="topic">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4">
+              
+            </div>
+            <div class="col-sm-8">
+              <ol class="breadcrumb pull-right hidden-xs">
+                
+                <li class="active">Create Magzine</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2">
+            <div class="sign-form">
+              <div class="sign-inner">
+                <h3 class="first-child">Create Magzine</h3>
+                <hr>
+                <%= render 'form' %>
+                <!-- <br> -->
+               
+              </div>
+            </div>
+          </div>
+        </div> <!-- / .row -->      
+    </div> <!-- / .container -->
+</div> <!-- / .wrapper -->
+   
+<!-- modal -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="invite_dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Invite</h4>
+      </div>
+      <div class="modal-body">
+        <p>Enter multiple emails separated by comma(,)</p>
+        <div class="divDialogElements">
+            <input class="xlarge xlInput form-control" id="xlInput" name="xlInput" type="text" placeholder="Email Address" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="redirectDialog();" id="invite_submit">Invite</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="message_dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Message</h4>
+      </div>
+      <div class="modal-body">
+        <p>Invitations for submitting form has been successfully sent.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+	function redirectDialog() {
+	    var iddd='#xlInput';
+	    if($(iddd).val().trim().length < 1) {
+	      $(iddd).attr("placeholder", "* Required");
+	      $(iddd).css('color', 'red');
+	      $(iddd).css('border', '2px solid red');
+	    } else {
+	      	$("#invite_submit").css('cursor', 'wait');
+	      	// window.location.href = '/invite/'+id_redirect+'?email='+$(iddd).val().trim();
+	      	$.ajax({
+		        type: 'GET',
+		        url: '/invite/'+id_redirect+'?email='+$(iddd).val().trim(),
+		        success: function(response) {
+		          console.log("Success");
+		          $('#invite_submit').css('cursor','pointer');
+		          $('#invite_dialog').modal('hide');
+		          $('#message_dialog').modal('show');
+		        },
+		        error: function() {
+		          console.log("Error");
+		          $('#invite_submit').css('cursor','pointer');
+		        }
+		    });
+	    }
+	}
+
+    $(document).ready(function(){
+        $('#invite_submit').css('cursor','pointer');
+        $("#xlInput").blur(function(){
+            if($(this).val().trim().length < 1) {
+                $(this).attr("placeholder", "* Required");
+                $(this).css('color', 'red');
+                $(this).css('border', '2px solid red');
+            } else {
+                $(this).attr("placeholder", "Email Address");
+                $(this).css('color', '#555555');
+                $(this).css('border', '2px solid #BBBBBB');
+            }
+        });
+
+        $("#xlInput").on('input',function() {
+        	$(this).attr("placeholder", "Email Address");
+            $(this).css('color', '#555555');
+            $(this).css('border', '2px solid #BBBBBB');
+        });
+    });
+</script>
+
+
+

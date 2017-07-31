@@ -1,0 +1,19 @@
+<div id="commentmsg<%=comment.id%>"></div>
+<li class="comment">
+  <div class="body" style="word-wrap: break-word;
+width: 50%">
+    <%= comment.body %>
+    <%if current_user %>
+      <div><strong><%= comment.user.try(:full_name) %></strong><span><%= (comment.user.id == current_user.id) ? (link_to "Remove Comment", comment_path(comment), method: :delete, data: {confirm: 'Are you sure?'}, remote: true, class: "btn") : "" %></span></div>
+    <% else %>
+      <div><strong><%= comment.user.try(:full_name) %></strong>
+    <% end %>
+  </div>
+  <p><%= link_to 'Add a Reply', new_comment_comment_path(comment), remote: true, class: "btn btn-primary btn-xs" %></p>
+  <div id="new_comment<%=comment.id%>"></div>
+  <% unless comment.comments.empty? %>
+    <ul class="comment_list">
+      <%= render :partial => 'comments/comment', :collection => comment.comments.order('created_at DESC') %>
+    </ul>
+  <% end %>
+</li>

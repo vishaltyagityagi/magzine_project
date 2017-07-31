@@ -1,0 +1,41 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2">    
+        <%if notice%>
+          <p id="notice" class="alert alert-success"><%= notice %></p>
+        <% end %>
+
+        <p>
+          <strong>Title:</strong>
+          <%= @article.title %>
+        </p>
+
+        <p style="width:50%;word-break:break-word;">
+          <strong>Body:</strong>
+          <%= @article.body %>
+        </p>
+
+        <p>
+          <strong>Author:</strong>
+          <%= @article.user.full_name %>
+        </p>
+
+        <p>
+          <strong>Magzine:</strong>
+          <%= @article.magzine.try(:title) %>
+        </p>
+        <%if current_user.present? and current_user.id == @article.user.id %>
+          <%= link_to 'Edit', edit_magzine_article_path(@article.magzine, @article), class: "btn btn-xs btn-blue" %> |
+        <% end %>
+        <%= link_to 'Back', magzine_path(@article.magzine), class: "btn btn-xs btn-danger" %> |
+        <%= link_to 'Add Comment', new_article_comment_path(@article), remote: true, class: "btn btn-xs btn-danger" %>
+        <div id="new_article_comment"></div>
+
+        <ul class="comment_list">
+          <%= render :partial => 'comments/comment', :collection => @article.comments.order('created_at DESC') %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+
+    <title>Magazine</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+
+    <!-- Custom styles for this template -->
+    <link href="/assets/style.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/assets/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/animate.css" rel="stylesheet">
+    <link href="/assets/lightbox.css" rel="stylesheet">
+    <link href="/assets/isotope/css/style.css" rel="stylesheet">
+    <link href='/assets/css2b6b.css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link href='/assets/css8b01.css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
+
+ 
+    <style>
+        div.ajax-loading{
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        display: none;
+        background: rgba(51,51,51,0.9);
+        z-index: 99;
+        text-align: center;
+
+        }
+        div.ajax-loading span{
+            position:absolute;
+            top:50%;
+            left:50%;
+            margin-left:-75px;
+            margin-top:-30px;
+            
+        }
+        div.ajax-loading span p{
+            padding-top:10px;
+            padding-right:10px;
+            
+        }
+        div.ajax-loading span p i{
+            color: #009ad9;
+        }
+      </style>
+
+</head>
+<body>
+	
+	<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+         
+          
+        </div>
+        <div class="collapse navbar-collapse">
+        	<% if user_signed_in? %>
+       			<%= link_to "Sign Out", destroy_user_session_path, :method => :delete,  class: "navbar-btn btn btn-red pull-right hidden-sm hidden-xs" %>
+       		<% else %>
+       			<a href="<%= new_user_session_path %>" class="navbar-btn btn btn-red pull-right hidden-sm hidden-xs">Sign In</a>
+    		<% end %>
+          
+          <ul class="nav navbar-nav navbar-right" id="menu_id">
+          	<% if current_user %>
+          		<li><a href="<%= root_path %>">Home</a></li>
+          	<% else %>
+          		<li><a href="/">Home</a></li>
+          	<% end %>
+          	
+          	<% if current_user %>
+          		<li><a href="<%= magzines_path %>">My Magzines</a></li>
+          	<% end %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div> <!-- / .navigation -->
+    
+    <!-- <p class="notice"><%= notice %></p> -->
+    <!-- <p class="alert"><%= alert %></p> -->
+
+   <div class="ajax-loading">
+    <span>
+        <img src="/assets/wait.gif">
+        <p><i class="fa fa-refresh fa-2x fa-spin"></i></p>
+    </span>
+  </div>
+	<%= yield %>
+	
+	<!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <!-- Contact Us -->
+          <div class="col-sm-4">
+            <h4><i class="fa fa-map-marker text-red"></i> Contact Us</h4>
+            <p>Do not hesitate to contact us if you have any questions or feature requests:</p>
+            <p>
+              Delhi<br />
+              Phone: +0 000 000 00 00<br />
+              Fax: +0 000 000 00 00<br />
+              Email: <a href="javascript:;"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Copyright -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="copyright">
+            &copy; Copyright <%#= Time.now.year %> All Rights Reserved
+          </div>
+        </div>
+      </div>  <!-- / .row -->
+    </div> <!-- / .container -->
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,7 @@
+<%if @comment.comments.size == 0 %>
+	$(".comment_list").html("<%= j(render :partial => 'comment', :collection => @comment.article.comments.order('created_at desc')) %>")
+<% else %>
+	$("#commentmsg<%= @comment.id %>").html("Unable to remove comment,Please remove child comment first.")
+<% end %>
+
+$("#new_article_comment").html("");

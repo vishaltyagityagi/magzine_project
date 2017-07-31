@@ -1,0 +1,30 @@
+<%= form_for(@magzine) do |f| %>
+  <% if @magzine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@magzine.errors.count, "error") %> prohibited this magzine from being saved:</h2>
+
+      <ul>
+      <% @magzine.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class: "form-control", autocomplete: "off" %>
+
+  </div>
+  <div class="form-group">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, class: "form-control", autocomplete: "off", size: "40x7" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.submit :"Create Magzine", class: "btn btn-primary" %>
+    <%= link_to 'Back', magzines_path, class: "btn btn-red", style: "margin-left:10px;" %>
+  </div>
+<% end %>
+
+

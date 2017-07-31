@@ -1,0 +1,7 @@
+<%if @comment.errors.any? %>
+	$("#error-msg").html("<%= @comment.errors.full_messages.join(",")%>").addClass("alert alert-success")
+<% end %>
+<%if @comment.persisted? %>
+	$(".comment_list").html("<%= j(render :partial => 'comment', :collection => @comment.article.comments.order('created_at desc')) %>")
+	$("#new_article_comment").html("");
+<% end %>

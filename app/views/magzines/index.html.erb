@@ -1,0 +1,52 @@
+<div class="wrapper">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2">    
+        <div class="table-responsive">
+          <%if notice %>
+            <p id="notice" class="alert alert-success"><%= notice %></p>
+          <% end %>
+
+          <h1>Listing Magzines</h1>
+          <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>User</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <%if @magzines.size > 0 %>
+              <% @magzines.each do |magzine| %>
+                <tr>
+                  <td style="width:20%"><%= magzine.title %></td>
+                  <td style="width:35%;word-break:break-word;"><%= magzine.description %></td>
+                  <td style="width:30%"><%= magzine.user.full_name.present? ? magzine.user.full_name : magzine.user.email %></td>
+                  <td><%= link_to 'Show', magzine %>
+                  <%= link_to 'Edit', edit_magzine_path(magzine) %>
+                  <%= link_to 'Destroy', magzine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="3">No Magazine available.</td>
+                </tr>
+
+              <% end %>
+            </tbody>
+          </table>
+
+          <br>
+
+          <%= link_to 'New Magzine', new_magzine_path, class: "btn btn-red" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

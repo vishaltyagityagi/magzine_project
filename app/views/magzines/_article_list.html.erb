@@ -1,0 +1,48 @@
+<div class="wrapper">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 col-md-offset-1 col-sm-8 col-sm-offset-2">    
+
+        <div class="table-responsive">
+         
+
+          <h1>Articles</h1>
+          <div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Body</th>
+                  <th>Author</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+              <%if @articles.size > 0 %>
+                <% @articles.each do |article| %>
+                  <tr>
+                    <td style="width:25%;"><%= article.title %></td>
+                    <td style="width:35%;word-break:break-word;"><%= article.body %></td>
+                    <td style="width:10%;"><%= article.user.full_name.present? ? article.user.full_name : article.user.email %></td>
+                    <td><%= link_to 'Show', magzine_article_path(@magzine, article) %>
+                      <%if current_user and (current_user.id == article.user.id) %>
+                        <%= link_to 'Edit', edit_magzine_article_path(@magzine, article) %>
+                        <%= link_to 'Destroy', magzine_article_path(@magzine, article), method: :delete, data: { confirm: 'Are you sure?' } %></td
+                    <% end %>
+                  </tr>
+                <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="5">Magazine has not article.</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
